@@ -9,6 +9,9 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
+    //옵저버 등록과 해제를 위한. object-c 메소드 그룹
+    var token:NSObjectProtocol?
+    
     let currentTime:DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .long
@@ -16,11 +19,22 @@ class TableViewController: UITableViewController {
         f.locale = Locale(identifier: "Ko_kr")
         return f
     }()
+    
+    //옵저버 해제.
+    deinit {
+        if let token = token {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
+        token = NotificationCenter.default.addObserver(forName: TableViewController.newMemoInsert, object: nil, queue: OperationQueue.main) {
+            [weak self] (noti) in
+            //테이블 뷰 reload
+            self?.tableView.reloadData()
+        }
     }
 
 
@@ -40,42 +54,7 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     /*
     // MARK: - Navigation
 

@@ -35,6 +35,8 @@ class NewMemoViewController: UIViewController {
         let newMemo = dummylist(content: memo)
         dummylist.memoList.append(newMemo)
         
+        //view를 종료하기 전에 broadcasting
+        NotificationCenter.default.post(name: TableViewController.newMemoInsert, object: nil)
     
         dismiss(animated: true, completion: nil)
     }
@@ -47,4 +49,10 @@ class NewMemoViewController: UIViewController {
     
 
     
+}
+
+//table view controller에 바뀐 부분 notifi 전달
+extension TableViewController {
+    //브로드캐스트로 모든 옵저버들에게 등록하기 위함.
+    static let newMemoInsert = Notification.Name(rawValue: "newMemoInsert")
 }
