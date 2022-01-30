@@ -26,13 +26,17 @@ class TableViewController: UITableViewController {
             NotificationCenter.default.removeObserver(token)
         }
     }
+    
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         token = NotificationCenter.default.addObserver(forName: TableViewController.newMemoInsert, object: nil, queue: OperationQueue.main) {
+            //(noti) : 매개변수
             [weak self] (noti) in
-            //테이블 뷰 reload
+            //실행코드
             self?.tableView.reloadData()
         }
     }
@@ -54,15 +58,21 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+        
+    //데이터 전달(세그웨이 방식)
+    //네이게이션 전에 약간의 준비를 하는 것이 좋을 것이다. : view 전환전에 할일 여기
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        //각 셀
+        if let cell = sender as? UITableViewCell,
+           //각 셀의 index
+           let indexPath = self.tableView.indexPath(for: cell) {
+            
+            //목적지
+            if let vc = segue.destination as? UpdateMemoViewController {
+                //데이터 넣어주기
+                vc.memo = dummylist.memoList[indexPath.row]
+            }
+        }
     }
-    */
 
 }

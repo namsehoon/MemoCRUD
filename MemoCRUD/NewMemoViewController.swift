@@ -51,7 +51,7 @@ class NewMemoViewController: UIViewController {
     
 }
 
-//table view controller에 바뀐 부분 notifi 전달
+//클래스 확장
 extension TableViewController {
     //브로드캐스트로 모든 옵저버들에게 등록하기 위함.
     static let newMemoInsert = Notification.Name(rawValue: "newMemoInsert")

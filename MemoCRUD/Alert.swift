@@ -17,6 +17,7 @@ extension UIViewController {
         let success = UIAlertAction(title: "확인", style: .default, handler: nil)
         
         alert.addAction(success)
+        //모달 전환
         self.present(alert, animated: true, completion: nil)
     }
 }
