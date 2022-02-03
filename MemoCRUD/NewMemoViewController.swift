@@ -32,8 +32,7 @@ class NewMemoViewController: UIViewController {
         }
         
         //메모리스트에 새메모 저장
-        let newMemo = dummylist(content: memo)
-        dummylist.memoList.append(newMemo)
+        DataManager.getInstance.addNewMemo(memo)
         
         //view를 종료하기 전에 broadcasting
         NotificationCenter.default.post(name: TableViewController.newMemoInsert, object: nil)

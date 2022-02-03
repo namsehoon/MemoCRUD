@@ -44,16 +44,16 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return dummylist.memoList.count
+        return DataManager.getInstance.memoList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "part", for: indexPath)
 
-        let target = dummylist.memoList[indexPath.row]
-        cell.textLabel?.text = target.content
-        cell.detailTextLabel?.text = currentTime.string(for: target.date)
+        let target = DataManager.getInstance.memoList[indexPath.row]
+        cell.textLabel?.text = target.savedContent
+        cell.detailTextLabel?.text = currentTime.string(for: target.savedDate)
         
         return cell
     }
@@ -70,7 +70,7 @@ class TableViewController: UITableViewController {
             //목적지
             if let vc = segue.destination as? UpdateMemoViewController {
                 //데이터 넣어주기
-                vc.memo = dummylist.memoList[indexPath.row]
+                vc.memo = DataManager.getInstance.memoList[indexPath.row]
             }
         }
     }

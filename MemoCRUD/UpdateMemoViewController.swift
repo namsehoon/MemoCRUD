@@ -9,7 +9,8 @@ import UIKit
 
 class UpdateMemoViewController: UIViewController {
     
-    var memo:dummylist?
+    //db 가져오기
+    var memo:Memo?
     
     let currentDate:DateFormatter = {
         let f = DateFormatter()
@@ -47,11 +48,11 @@ extension UpdateMemoViewController:UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "currentPart", for: indexPath)
             
-            cell.textLabel?.text = memo?.content
+            cell.textLabel?.text = memo?.savedContent
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "date", for: indexPath)
-            cell.textLabel?.text = currentDate.string(for: memo?.date)
+            cell.textLabel?.text = currentDate.string(for: memo?.savedDate)
             
             return cell
             
